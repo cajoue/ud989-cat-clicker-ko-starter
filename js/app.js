@@ -18,5 +18,18 @@ var ViewModel = function (){
   this.incrementCounter = function(){
     this.clickCount(this.clickCount() + 1);
   };
+
+  // computed observables
+  // catLevel is dependant on clickCount and is computed from it
+  this.catLevel = ko.computed(function(){
+    // a regular array seems ok for now... but maybe it should be an observable one?
+    var levels = ['newborn', 'infant', 'child', 'teen', 'adult', 'schrodinger'];
+    if (this.clickCount() < 1 ) return levels[0];
+    else if (this.clickCount() < 3 ) return levels[1];
+    else if (this.clickCount() < 10 ) return levels[2];
+    else if (this.clickCount() < 20 ) return levels[3];
+    else if (this.clickCount() < 25 ) return levels[4];
+    else return levels[5];
+  }, this);
 }
 ko.applyBindings(new ViewModel());
