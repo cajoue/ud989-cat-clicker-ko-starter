@@ -31,5 +31,9 @@ var ViewModel = function (){
     else if (this.clickCount() < 25 ) return levels[4];
     else return levels[5];
   }, this);
+
+  // use control structure foreach to display nicknames in list in html
+  // the array contents are very simple so can use $data to access the data at the current index
+  this.nicknames = ko.observableArray(['kit', 'kitty', 'kitkat', 'kitty kat']);
 }
 ko.applyBindings(new ViewModel());
