@@ -6,11 +6,24 @@
 </head>
 <body>
     <ul id="cat-list"></ul>
-    <div id="cat">
+    <!-- remove ids for clarity and use data-bind attributes for use with ko -->
+    <div>
+        <!-- h2 text to be wired with 'name' property of cat in js -->
+        <h2 data-bind="text: name"></h2>
+        <!-- the text here will be the click count -->
+        <div data-bind="text: clickCount"></div>
+        <!-- this will be a little different
+            when we click we want incrementCounter to run
+            also want src attribute to change as source changes
+            (not actually implemented in this simple version - but if it were... )
+            use a comma to separate multiple bindings
+            to bind an attribute in ko use attr: with an obj literal eg src with what you want to bind it to
 
-        <h2 id="cat-name"></h2>
-        <div id="cat-count"></div>
-        <img id="cat-img" src="" alt="cute cat">
+            if the imgSrc observable changes then the attr src on this img will change
+            Remember the bindings are connecting the View and the Model
+            And Knockout is handling all of the logic to make the synchronization happen
+        -->
+        <img data-bind="click: incrementCounter, attr: {src: imgSrc}" src="" alt="cute cat">
 
     </div>
     <script src="js/lib/knockout-3.2.0.js"></script>
