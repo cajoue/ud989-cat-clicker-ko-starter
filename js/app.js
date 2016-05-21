@@ -32,6 +32,21 @@ var ViewModel = function (){
     else return levels[5];
   }, this);
 
+  // alternative catLevel function based on solution video
+  // this.catLevel = ko.computed(function(){
+  //   var level;
+  //   var clicks = this.clickCount();
+  //   if (clicks < 3) {
+  //     level = "kitten";
+  //   } else if (clicks < 9) {
+  //     level = "cat";
+  //   } else {
+  //     level = "catastrophe";
+  //   }
+  //   return level;
+  // }, this);
+
+
   // use control structure foreach to display nicknames in list in html
   // the array contents are very simple so can use $data to access the data at the current index
   this.nicknames = ko.observableArray(['kit', 'kitty', 'kitkat', 'kitty kat']);
