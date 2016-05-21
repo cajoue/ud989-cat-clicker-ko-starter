@@ -6,31 +6,16 @@
 </head>
 <body>
     <ul id="cat-list"></ul>
-    <!-- remove ids for clarity and use data-bind attributes for use with ko -->
     <div>
-        <!-- h2 text to be wired with 'name' property of cat in js -->
-        <h2 data-bind="text: name"></h2>
-        <!-- h3 text to be wired with computed 'catLevel' property of cat in js -->
-        <h3 data-bind="text: catLevel"></h3>
-        <!-- the text here will be the click count -->
-        <div data-bind="text: clickCount"></div>
-        <!-- this will be a little different
-            when we click we want incrementCounter to run
-            also want src attribute to change as source changes
-            (not actually implemented in this simple version - but if it were... )
-            use a comma to separate multiple bindings
-            to bind an attribute in ko use attr: with an obj literal eg src with what you want to bind it to
-
-            if the imgSrc observable changes then the attr src on this img will change
-            Remember the bindings are connecting the View and the Model
-            And Knockout is handling all of the logic to make the synchronization happen
-        -->
-        <img data-bind="click: incrementCounter, attr: {src: imgSrc}" src="" alt="cute cat">
-
+        <!-- update data-bind to look at currentCat() properties -->
+        <h2 data-bind="text: currentCat().name"></h2>
+        <h3 data-bind="text: currentCat().catLevel"></h3>
+        <div data-bind="text: currentCat().clickCount"></div>
+        <img data-bind="click: incrementCounter, attr: {src: currentCat().imgSrc}" src="" alt="cute cat">
     </div>
     <div>
         <h3>Nicknames</h3>
-        <ul data-bind="foreach: nicknames">
+        <ul data-bind="foreach: currentCat().nicknames">
             <li data-bind="text: $data"></li>
         </ul>
     </div>
