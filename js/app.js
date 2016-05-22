@@ -35,5 +35,24 @@ var ViewModel = function (){
   this.incrementCounter = function(){
     this.clickCount(this.clickCount() + 1);
   };
-}
+};
+
+// alternative solution for ViewModel to avoid confusion with scopes/contexts of keyword 'this'
+// Both solutions are equally valid, neither is more right nor more wrong than the other
+
+// var ViewModel = function (){
+//   // store a pointer to hold reference to the ViewModel scope
+//   var self = this;
+//   this.currentCat = ko.observable(new Cat());
+
+//   // update increment counter to get click info from the Cat Model
+//   // use 'self' inside the function instead of 'this':
+//   // 'self' references the ViewModel scope
+//   // 'this', inside the function, would reference the binding-context of currentCat() due to the 'with' binding in the html
+//   this.incrementCounter = function(){
+//     self.currentCat().clickCount(self.currentCat().clickCount() + 1);
+//   };
+// };
+
+
 ko.applyBindings(new ViewModel());
