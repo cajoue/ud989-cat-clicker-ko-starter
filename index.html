@@ -6,19 +6,22 @@
 </head>
 <body>
     <ul id="cat-list"></ul>
-    <div>
+    <div data-bind="with: currentCat()">
         <!-- update data-bind to look at currentCat() properties -->
-        <h2 data-bind="text: currentCat().name"></h2>
-        <h3 data-bind="text: currentCat().catLevel"></h3>
-        <div data-bind="text: currentCat().clickCount"></div>
-        <img data-bind="click: incrementCounter, attr: {src: currentCat().imgSrc}" src="" alt="cute cat">
+        <!-- all of the data-binds inside this div are now relative to currentCat -->
+        <h2 data-bind="text: name"></h2> <!-- equivalent to currentCat().name -->
+        <h3 data-bind="text: catLevel"></h3>
+        <div data-bind="text: clickCount"></div>
+        <!-- use $parent to get out of currentCat binding context as increment counter exists in ViewModel not currentCat -->
+        <img data-bind="click: $parent.incrementCounter, attr: {src: imgSrc}" src="" alt="cute cat">
+        <div>
+            <h3>Nicknames</h3>
+            <ul data-bind="foreach: nicknames">
+                <li data-bind="text: $data"></li>
+            </ul>
+        </div>
     </div>
-    <div>
-        <h3>Nicknames</h3>
-        <ul data-bind="foreach: currentCat().nicknames">
-            <li data-bind="text: $data"></li>
-        </ul>
-    </div>
+
     <script src="js/lib/knockout-3.2.0.js"></script>
     <script src="js/app.js"></script>
 </body>

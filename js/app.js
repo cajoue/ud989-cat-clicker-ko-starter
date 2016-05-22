@@ -30,8 +30,10 @@ var ViewModel = function (){
   this.currentCat = ko.observable(new Cat());
 
   // update increment counter to get click info from the Cat Model
+  // this function is run within the currentCat() binding context in index.html
+  // so don't need to specify the context again within the function
   this.incrementCounter = function(){
-    this.currentCat().clickCount(this.currentCat().clickCount() + 1);
+    this.clickCount(this.clickCount() + 1);
   };
 }
 ko.applyBindings(new ViewModel());
