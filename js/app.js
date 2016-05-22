@@ -1,13 +1,15 @@
 // separate the Model from the ViewModel
 // move all cat logic to it's own function
+// get ready for more cats
 
-var Cat = function (){
-  // Model data is now separate to the ViewModel!!
-  this.clickCount = ko.observable(0);
-  this.name = ko.observable('Tabby');
-  this.imgSrc = ko.observable('img/434164568_fea0ad4013_z.jpg');
-  this.imgAttribution = ko.observable('https://flickr.com/photos/big');
-  this.nicknames = ko.observableArray(['kit', 'kitty', 'kitkat', 'kitty kat']);
+// data is an object literal that contains cat data
+var Cat = function (data){
+  // set values based on the object literal data that gets passed in
+  this.clickCount = ko.observable(data.clickCount);
+  this.name = ko.observable(data.name);
+  this.imgSrc = ko.observable(data.imgSrc);
+  this.imgAttribution = ko.observable(data.imgAttribution);
+  this.nicknames = ko.observableArray(data.nicknames);
   // computed observables
   // catLevel is dependant on clickCount and is computed from it
   this.catLevel = ko.computed(function(){
@@ -25,34 +27,26 @@ var Cat = function (){
 };
 
 var ViewModel = function (){
-  // our ViewModel is now much more simple
-  // still require a cat object, make the current cat an observable
-  this.currentCat = ko.observable(new Cat());
+  // store a pointer to hold reference to the ViewModel scope
+  var self = this;
+  // pass object literal data to new Cat
+  // set data where Cat is created
+  this.currentCat = ko.observable(new Cat({
+    clickCount: 0,
+    name: 'Tabby',
+    imgSrc: 'img/434164568_fea0ad4013_z.jpg',
+    imgAttribution: 'https://flickr.com/photos/big',
+    nicknames: ['kit', 'kitty', 'kitkat', 'kitty kat']
+  }));
 
   // update increment counter to get click info from the Cat Model
-  // this function is run within the currentCat() binding context in index.html
-  // so don't need to specify the context again within the function
+  // use 'self' inside the function instead of 'this':
+  // 'self' references the ViewModel scope
+  // 'this', inside the function, would reference the binding-context of currentCat() due to the 'with' binding in the html
   this.incrementCounter = function(){
-    this.clickCount(this.clickCount() + 1);
+    self.currentCat().clickCount(self.currentCat().clickCount() + 1);
   };
 };
-
-// alternative solution for ViewModel to avoid confusion with scopes/contexts of keyword 'this'
-// Both solutions are equally valid, neither is more right nor more wrong than the other
-
-// var ViewModel = function (){
-//   // store a pointer to hold reference to the ViewModel scope
-//   var self = this;
-//   this.currentCat = ko.observable(new Cat());
-
-//   // update increment counter to get click info from the Cat Model
-//   // use 'self' inside the function instead of 'this':
-//   // 'self' references the ViewModel scope
-//   // 'this', inside the function, would reference the binding-context of currentCat() due to the 'with' binding in the html
-//   this.incrementCounter = function(){
-//     self.currentCat().clickCount(self.currentCat().clickCount() + 1);
-//   };
-// };
 
 
 ko.applyBindings(new ViewModel());
