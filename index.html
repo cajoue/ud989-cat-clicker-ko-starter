@@ -7,8 +7,9 @@
 <body>
     <h1>Select a cat</h1>
     <!-- show list of cats on screen -->
+    <!-- add click binding to each cat to trigger new cat selection -->
     <ul data-bind="foreach: catList">
-        <li data-bind="text: name"></li>
+        <li data-bind="text: name, click: $parent.selectCat"></li>
     </ul>
     <div data-bind="with: currentCat">
         <!-- update data-bind to look at currentCat() properties -->

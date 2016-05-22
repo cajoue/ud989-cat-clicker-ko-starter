@@ -92,6 +92,14 @@ var ViewModel = function (){
   this.incrementCounter = function(){
     self.currentCat().clickCount(self.currentCat().clickCount() + 1);
   };
+
+  // make the currentCat change when you click a cat in the list
+  this.selectCat = function(newCat){
+    self.currentCat(newCat); // of course! just pass the newCat to currentCat observable
+    // self.currentCat = ko.observable(newCat); // don't assign a new observable
+    console.log('clicked: ' + newCat.name());
+    console.log('assigned: ' + self.currentCat().name());
+  };
 };
 
 
