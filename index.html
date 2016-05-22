@@ -5,8 +5,12 @@
     <title>Cat Clicker</title>
 </head>
 <body>
-    <ul id="cat-list"></ul>
-    <div data-bind="with: currentCat()">
+    <h1>Select a cat</h1>
+    <!-- show list of cats on screen -->
+    <ul data-bind="foreach: catList">
+        <li data-bind="text: name"></li>
+    </ul>
+    <div data-bind="with: currentCat">
         <!-- update data-bind to look at currentCat() properties -->
         <!-- all of the data-binds inside this div are now relative to currentCat -->
         <h2 data-bind="text: name"></h2> <!-- equivalent to currentCat().name -->
